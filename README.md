@@ -1,4 +1,7 @@
 # dataLayer-for-woocommerce
-dataLayer for purchase
 
-Sammlung an Code für functions.php einer WordPress Installation mit wooCommerce.
+Collection of code for functions.php within a WordPress installation with WooCommerce.
+
+## Part 1
+
+dataLayer for 'purchase'
