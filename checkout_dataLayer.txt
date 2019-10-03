@@ -21,12 +21,14 @@ function checkout_dataLayer( $order_id ) {
                   <?php
                     foreach($order->get_items() as $key => $item):
                       $product = $order->get_product_from_item( $item );
+					  $variant_name = ($item['variation_id']) ? wc_get_product($item['variation_id']) : '';
                   ?>
                       {
                         'name': '<?php echo $item['name']; ?>',
-                        'id': '<?php echo $product->get_sku(); ?>',
+                        'id': '<?php echo $item['product_id']; ?>',
                         'price': '<?php echo number_format($order->get_line_subtotal($item), 2, ".", ""); ?>',
-                        'brand': 'Brand',
+						'category': <?php echo strip_tags($product->get_categories(', ', '', ''); ?>',
+						'variant': <?php echo ($variant_name) ? implode("-", $variant_name->get_variant_attributes()); ?>',
                         'quantity': <?php echo $item['qty']; ?>
                       },
                   <?php endforeach; ?>
