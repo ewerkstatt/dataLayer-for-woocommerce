@@ -1,0 +1,38 @@
+add_action( 'woocommerce_thankyou', 'checkout_dataLayer' );
+
+function checkout_dataLayer( $order_id ) {
+
+<script>
+      dataLayer.push({
+          'ecommerce': {
+            'currencyCode': '<?php echo $order->get_order_currency(); ?>',
+            'purchase': {
+              'actionField':{
+                'id': '<?php echo $order->get_order_number(); ?>',
+                'affiliation': 'Website',
+                'revenue': <?php echo number_format($order->get_total(), 2, ".", ""); ?>,
+                'shipping': <?php echo number_format($order->calculate_shipping(), 2, ".", ""); ?>,
+                <?php if($order->get_used_coupons()): ?>
+                    'coupon': '<?php echo implode("-", $order->get_used_coupons()); ?>'
+                <?php endif; ?>
+
+              },
+              'products': [
+                  <?php
+                    foreach($order->get_items() as $key => $item):
+                      $product = $order->get_product_from_item( $item );
+                  ?>
+                      {
+                        'name': '<?php echo $item['name']; ?>',
+                        'id': '<?php echo $product->get_sku(); ?>',
+                        'price': '<?php echo number_format($order->get_line_subtotal($item), 2, ".", ""); ?>',
+                        'brand': 'Brand',
+                        'quantity': <?php echo $item['qty']; ?>
+                      },
+                  <?php endforeach; ?>
+                ]
+            }
+          }
+      });
+</script>
+}
