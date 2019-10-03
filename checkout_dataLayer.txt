@@ -1,7 +1,7 @@
 // Add this into the file functions.php of your (child-)theme
-// Do not do this if you use the plugin 'Google Tag manager for WordPress' by DuracellTomi simulataneously
+// Do not do this if you already use the plugin 'Google Tag manager for WordPress' by DuracellTomi simultaneously with integration of 'woocommerce' and active enhanced ecommerce tracking.
 
-add_action( 'woocommerce_thankyou', 'checkout_dataLayer' );
+add_action( 'woocommerce_thankyou', 'checkout_dataLayer', 10, 1  );
 
 function checkout_dataLayer( $order_id ) { ?>
 
